@@ -35,8 +35,6 @@ if [ ! -z "$BITBAR_API_KEY" ]
 
     echo "$CONFIGURATION" > configuration
 
-    cat configuration
-
     echo "Starting tests..."
     testRunId=$(curl -H 'Content-Type: application/json' -u "$BITBAR_API_KEY": https://cloud.bitbar.com/api/me/runs --data-binary @configuration | jq -r '.id')
 
