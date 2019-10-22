@@ -20,9 +20,11 @@ if [ ! -z "$BITBAR_API_KEY" ]
 
     echo "Uploading dummy application apk..."
     appFile=$(curl -X POST -u "$BITBAR_API_KEY": https://cloud.bitbar.com/api/me/files -F "file=@application.apk" | jq -r '.id')
+    echo $appFile
 
     echo "Uploading test file..."
     testFile=$(curl -X POST -u "$BITBAR_API_KEY": https://cloud.bitbar.com/api/me/files -F "file=@bitbarTestsAndroid.zip" | jq -r '.id')
+     echo $testFile
 
     CONFIGURATION=$( jq -n \
               --arg file1 "${appFile}" \
@@ -34,6 +36,8 @@ if [ ! -z "$BITBAR_API_KEY" ]
               '{"osType":"ANDROID","projectId":$projectId,"files":[{"id": $file1},{"id": $file2}],"frameworkId":$frameworkId,"deviceGroupId":$deviceGroupId,"testRunName":$testRunName}' )
 
     echo "$CONFIGURATION" > configuration
+
+    cat configuration
 
     echo "Starting tests..."
     testRunId=$(curl -H 'Content-Type: application/json' -u "$BITBAR_API_KEY": https://cloud.bitbar.com/api/me/runs --data-binary @configuration | jq -r '.id')
