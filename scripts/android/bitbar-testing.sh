@@ -16,8 +16,6 @@ if [ ! -z "$BITBAR_API_KEY" ]
     zip -r bitbarTestsAndroid ./run-tests.sh ./android/app/build/outputs/apk ./e2e ./package.json
     cp ./android/app/build/outputs/apk/release/app-release.apk application.apk
 
-    ls -la
-
     echo "Uploading tests to bitbar..."
 
     echo "Uploading dummy application apk..."
@@ -32,7 +30,7 @@ if [ ! -z "$BITBAR_API_KEY" ]
               --arg projectId "${BITBAR_PROJECT_ID}" \
               --arg frameworkId "${BITBAR_FRAMEWORK_ID}" \
               --arg deviceGroupId "${BITBAR_DEVICE_GROUP_ID}" \
-              --arg testRunName "Test Run - Env: ${ENVIRONMENT} - Branch: ${APPCENTER_BRANCH} - Build: ${APPCENTER_BUILD_ID}" \
+              --arg testRunName "Test Run - Branch: ${APPCENTER_BRANCH} - Build: ${APPCENTER_BUILD_ID}" \
               '{"osType":"ANDROID","projectId":$projectId,"files":[{"id": $file1},{"id": $file2}],"frameworkId":$frameworkId,"deviceGroupId":$deviceGroupId,"testRunName":$testRunName}' )
 
     echo "$CONFIGURATION" > configuration
