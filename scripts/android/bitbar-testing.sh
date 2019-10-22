@@ -16,6 +16,8 @@ if [ ! -z "$BITBAR_API_KEY" ]
     zip -r bitbarTestsAndroid ./run-tests.sh ./android/app/build/outputs/apk ./e2e ./package.json
     cp ./android/app/build/outputs/apk/release/app-release.apk application.apk
 
+    ls -la
+
     echo "Uploading tests to bitbar..."
 
     echo "Uploading dummy application apk..."
