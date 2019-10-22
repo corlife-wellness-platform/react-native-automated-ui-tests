@@ -14,17 +14,16 @@ if [ ! -z "$BITBAR_API_KEY" ]
     echo "Building test file..."
     cp ./bitbar/run-tests-android.sh run-tests.sh
     zip -r bitbarTestsAndroid ./run-tests.sh ./android/app/build/outputs/apk ./e2e ./package.json
-    cp ./android/app/build/outputs/apk/release/app-release.apk my-app.apk
+    cp ./android/app/build/outputs/apk/release/app-release.apk application.apk
 
     echo "Uploading tests to bitbar..."
 
+    echo "Uploading dummy application apk..."
+#    appFile=$(curl -X POST -u "$BITBAR_API_KEY": https://cloud.bitbar.com/api/me/files -F "file=@application.apk" | jq -r '.id')
+    appFile=129705060
+
     echo "Uploading test file..."
     testFile=$(curl -X POST -u "$BITBAR_API_KEY": https://cloud.bitbar.com/api/me/files -F "file=@bitbarTestsAndroid.zip" | jq -r '.id')
-    echo $testFile
-
-    echo "Uploading dummy application apk..."
-    appFile=$(curl -X POST -u "$BITBAR_API_KEY": https://cloud.bitbar.com/api/me/files -F "file=@my-app.apk" | jq -r '.id')
-    echo $appFile
 
     CONFIGURATION=$( jq -n \
               --arg file1 "${appFile}" \
