@@ -18,13 +18,13 @@ if [ ! -z "$BITBAR_API_KEY" ]
 
     echo "Uploading tests to bitbar..."
 
+    echo "Uploading test file..."
+    testFile=$(curl -X POST -u "$BITBAR_API_KEY": https://cloud.bitbar.com/api/me/files -F "file=@bitbarTestsAndroid.zip" | jq -r '.id')
+    echo $testFile
+
     echo "Uploading dummy application apk..."
     appFile=$(curl -X POST -u "$BITBAR_API_KEY": https://cloud.bitbar.com/api/me/files -F "file=@my-app.apk" | jq -r '.id')
     echo $appFile
-
-    echo "Uploading test file..."
-    testFile=$(curl -X POST -u "$BITBAR_API_KEY": https://cloud.bitbar.com/api/me/files -F "file=@bitbarTestsAndroid.zip" | jq -r '.id')
-     echo $testFile
 
     CONFIGURATION=$( jq -n \
               --arg file1 "${appFile}" \
